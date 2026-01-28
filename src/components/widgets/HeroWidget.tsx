@@ -7,8 +7,8 @@ export default function HeroWidget({
 }) {
   return (
     <div className="flex h-full flex-col justify-center">
-      <h1 className="text-4xl font-bold text-white">{title}</h1>
-      <p className="text-zinc-400">{subtitle}</p>
+      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black">{title}</h1>
+      <p className="text-sm sm:text-base text-zinc-400">{subtitle}</p>
     </div>
   );
 }

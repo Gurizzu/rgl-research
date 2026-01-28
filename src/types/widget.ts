@@ -3,6 +3,12 @@ export type HeroProps = {
     subtitle: string
 }
 
+export type HeroImageProps = {
+    title: string
+    subtitle?: string
+    image: string
+}
+
 export type TextProps = {
     text: string
 }

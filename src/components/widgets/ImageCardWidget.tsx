@@ -19,8 +19,8 @@ export default function ImageCardWidget({
         )}
       </div>
       <div>
-        <h3 className="font-semibold text-white">{title}</h3>
-        <p className="text-sm text-zinc-400">{description}</p>
+        <h3 className="text-sm sm:text-base font-semibold text-white">{title}</h3>
+        <p className="text-xs sm:text-sm text-zinc-400">{description}</p>
       </div>
     </div>
   );
