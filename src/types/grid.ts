@@ -68,3 +68,11 @@ export type WidgetConfig =
     props: ImageCardProps
   }
 
+export interface Section {
+  id: string;
+  title: string;
+  description?: string;
+  widgets: WidgetInstance[];
+}
+
+
