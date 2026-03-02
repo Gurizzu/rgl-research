@@ -1,6 +1,6 @@
-import type { WidgetInstance } from "@/types/grid";
+import type { WidgetInstance } from "@/types";
 import HeroWidget from "@/components/widgets/HeroWidget";
-import HeroImageWidget from "../widgets/HeroImageWidget";
+import HeroImageWidget from "@/components/widgets/HeroImageWidget";
 import ImageCardWidget from "@/components/widgets/ImageCardWidget";
 import TextWidget from "@/components/widgets/TextWidget";
 
