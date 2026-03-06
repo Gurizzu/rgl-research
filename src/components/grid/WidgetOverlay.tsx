@@ -1,42 +1,42 @@
-"use client";
-
+import { Trash2, Settings } from "lucide-react";
 import React from "react";
 
 interface WidgetOverlayProps {
     widgetId: string;
-    onDelete: () => void;
-    onToggleConfig: (buttonRect: DOMRect) => void;
     isConfigOpen: boolean;
+    onToggleConfig: (buttonRect: DOMRect) => void;
+    onDelete: () => void;
 }
 
-export function WidgetOverlay({ widgetId, onDelete, onToggleConfig, isConfigOpen }: WidgetOverlayProps) {
+export function WidgetOverlay({ widgetId, isConfigOpen, onToggleConfig, onDelete }: WidgetOverlayProps) {
+    const configBtnRef = React.useRef<HTMLButtonElement>(null);
+
+    const handleConfigClick = () => {
+        if (configBtnRef.current) {
+            onToggleConfig(configBtnRef.current.getBoundingClientRect());
+        }
+    };
+
     return (
-        <div className="absolute top-1 right-1 flex items-center gap-1 z-20 pointer-events-auto">
+        <div className="absolute top-1 right-1 flex gap-1 z-10">
             <button
+                ref={configBtnRef}
                 type="button"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-                    onToggleConfig(rect);
-                }}
-                className={`p-1 rounded text-[10px] transition-all ${isConfigOpen
-                        ? "bg-blue-100 text-blue-600 border border-blue-200"
-                        : "bg-zinc-200/80 text-zinc-500 hover:bg-zinc-300 hover:text-zinc-700"
+                onClick={handleConfigClick}
+                className={`p-1.5 rounded-md border transition-all
+                    ${isConfigOpen
+                        ? "bg-rose-tint border-crimson/30 text-crimson shadow-sm"
+                        : "bg-white/90 backdrop-blur-sm border-warm-border text-text-muted hover:text-text-primary hover:bg-white"
                     }`}
-                title="Edit config"
             >
-                ⚙
+                <Settings className="w-3.5 h-3.5" />
             </button>
             <button
                 type="button"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete();
-                }}
-                className="p-1 bg-red-100/80 text-red-500 hover:bg-red-200 hover:text-red-600 rounded text-[10px] transition-all"
-                title="Delete widget"
+                onClick={onDelete}
+                className="p-1.5 rounded-md border bg-white/90 backdrop-blur-sm border-warm-border text-text-muted hover:text-red-500 hover:bg-red-50 hover:border-red-200 transition-all"
             >
-                🗑
+                <Trash2 className="w-3.5 h-3.5" />
             </button>
         </div>
     );

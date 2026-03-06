@@ -121,15 +121,15 @@ export default function GridCanvasResponsive({
                     const shadowCls = bc?.shadow ? shadowMap[bc.shadow] : (isPadded ? "shadow-sm" : "");
 
                     // Border class from baseConfig
-                    const borderMap = { none: "", subtle: "border border-zinc-200", solid: "border-2 border-zinc-300" };
-                    const borderCls = bc?.border ? borderMap[bc.border] : (isPadded ? "border border-zinc-300" : "");
+                    const borderMap = { none: "", subtle: "border border-warm-border", solid: "border-2 border-warm-border" };
+                    const borderCls = bc?.border ? borderMap[bc.border] : (isPadded ? "border border-warm-border" : "");
 
                     // If no baseConfig, use original classes
                     const hasBaseConfig = !!bc;
                     const className = hasBaseConfig
                         ? `relative ${shadowCls} ${borderCls}`
                         : isPadded
-                            ? `relative rounded-xl bg-zinc-100 border border-zinc-300 shadow-sm p-2 sm:p-3 md:p-4 text-zinc-800`
+                            ? `relative rounded-xl bg-warm-surface border border-warm-border shadow-sm p-2 sm:p-3 md:p-4 text-text-primary`
                             : `relative overflow-hidden`;
 
                     return (

@@ -56,7 +56,7 @@ function Toggle({ value, onChange, label }: { value: boolean; onChange: (v: bool
             <button
                 type="button"
                 onClick={() => onChange(!value)}
-                className={`relative w-8 h-[18px] rounded-full transition-colors ${value ? "bg-blue-400" : "bg-zinc-200"}`}
+                className={`relative w-8 h-[18px] rounded-full transition-colors ${value ? "bg-crimson" : "bg-warm-border"}`}
             >
                 <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white shadow-sm transition-transform ${value ? "translate-x-[16px]" : "translate-x-[2px]"}`} />
             </button>
@@ -126,8 +126,8 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
         setDraftBase((prev) => ({ ...prev, [key]: value }));
     };
 
-    const inputCls = "w-full px-3 py-2 text-xs bg-zinc-50 border border-zinc-200/80 rounded-lg text-zinc-800 placeholder-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300 transition-all";
-    const labelCls = "block text-[10px] text-zinc-400 font-medium uppercase tracking-wider mb-1";
+    const inputCls = "w-full px-3 py-2 text-xs bg-warm-surface border border-warm-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson/40 transition-all";
+    const labelCls = "block text-[10px] text-text-muted font-medium uppercase tracking-wider mb-1";
 
     const panel = (
         <>
@@ -136,23 +136,23 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
 
             {/* Panel */}
             <div
-                className="absolute z-[9999] bg-white/95 backdrop-blur-xl border border-zinc-200/60 rounded-xl shadow-2xl shadow-black/10 max-h-[80vh] overflow-y-auto"
+                className="absolute z-[9999] bg-white/95 backdrop-blur-xl border border-warm-border rounded-xl shadow-2xl shadow-black/10 max-h-[80vh] overflow-y-auto"
                 style={{ top: position.top, left: position.left, width: position.width }}
                 onClick={(e) => e.stopPropagation()}
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-zinc-100 sticky top-0 bg-white/95 backdrop-blur-xl rounded-t-xl z-10">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-warm-border sticky top-0 bg-white/95 backdrop-blur-xl rounded-t-xl z-10">
                     <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                        <span className="text-[11px] font-semibold text-zinc-700 uppercase tracking-wide">
+                        <div className="w-1.5 h-1.5 rounded-full bg-crimson" />
+                        <span className="text-[11px] font-semibold text-text-primary uppercase tracking-wide">
                             {widget.type}
                         </span>
                     </div>
                     <button
                         type="button"
                         onClick={onClose}
-                        className="text-zinc-300 hover:text-zinc-500 transition-colors text-sm leading-none"
+                        className="text-text-muted hover:text-text-primary transition-colors text-sm leading-none"
                     >
                         ✕
                     </button>
@@ -184,25 +184,25 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                     ))}
 
                     {/* Padded toggle */}
-                    <div className="pt-2 border-t border-zinc-100">
+                    <div className="pt-2 border-t border-warm-border">
                         <Toggle value={draftPadded} onChange={setDraftPadded} label="Padded" />
                     </div>
                 </div>
 
                 {/* Base Config — Collapsible */}
-                <div className="border-t border-zinc-100">
+                <div className="border-t border-warm-border">
                     <button
                         type="button"
                         onClick={() => setBaseOpen(!baseOpen)}
-                        className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-zinc-50 transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-warm-surface transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-                            <span className="text-[11px] font-semibold text-zinc-700 uppercase tracking-wide">
+                            <div className="w-1.5 h-1.5 rounded-full bg-sakura" />
+                            <span className="text-[11px] font-semibold text-text-primary uppercase tracking-wide">
                                 Base Config
                             </span>
                         </div>
-                        <span className={`text-zinc-300 text-[10px] transition-transform ${baseOpen ? "rotate-180" : ""}`}>
+                        <span className={`text-text-muted text-[10px] transition-transform ${baseOpen ? "rotate-180" : ""}`}>
                             ▼
                         </span>
                     </button>
@@ -218,7 +218,7 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                         type="color"
                                         value={draftBase.backgroundColor || "#f4f4f5"}
                                         onChange={(e) => updateBase("backgroundColor", e.target.value)}
-                                        className="w-8 h-8 rounded-lg border border-zinc-200 cursor-pointer p-0.5"
+                                        className="w-8 h-8 rounded-lg border border-warm-border cursor-pointer p-0.5"
                                     />
                                     <input
                                         type="text"
@@ -238,7 +238,7 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                         type="color"
                                         value={draftBase.textColor || "#27272a"}
                                         onChange={(e) => updateBase("textColor", e.target.value)}
-                                        className="w-8 h-8 rounded-lg border border-zinc-200 cursor-pointer p-0.5"
+                                        className="w-8 h-8 rounded-lg border border-warm-border cursor-pointer p-0.5"
                                     />
                                     <input
                                         type="text"
@@ -260,7 +260,7 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                     step={2}
                                     value={draftBase.padding ?? 12}
                                     onChange={(e) => updateBase("padding", Number(e.target.value))}
-                                    className="w-full h-1.5 bg-zinc-200 rounded-full appearance-none cursor-pointer accent-blue-400"
+                                    className="w-full h-1.5 bg-warm-border rounded-full appearance-none cursor-pointer"
                                 />
                             </div>
 
@@ -274,7 +274,7 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                     step={2}
                                     value={draftBase.borderRadius ?? 12}
                                     onChange={(e) => updateBase("borderRadius", Number(e.target.value))}
-                                    className="w-full h-1.5 bg-zinc-200 rounded-full appearance-none cursor-pointer accent-blue-400"
+                                    className="w-full h-1.5 bg-warm-border rounded-full appearance-none cursor-pointer"
                                 />
                             </div>
 
@@ -288,7 +288,7 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                     step={5}
                                     value={draftBase.opacity ?? 100}
                                     onChange={(e) => updateBase("opacity", Number(e.target.value))}
-                                    className="w-full h-1.5 bg-zinc-200 rounded-full appearance-none cursor-pointer accent-blue-400"
+                                    className="w-full h-1.5 bg-warm-border rounded-full appearance-none cursor-pointer"
                                 />
                             </div>
 
@@ -302,8 +302,8 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                                             type="button"
                                             onClick={() => updateBase("shadow", opt.value)}
                                             className={`flex-1 py-1.5 text-[10px] font-medium rounded-md border transition-all ${draftBase.shadow === opt.value
-                                                ? "bg-blue-50 border-blue-200 text-blue-600"
-                                                : "bg-zinc-50 border-zinc-200 text-zinc-400 hover:bg-zinc-100"
+                                                ? "bg-rose-tint border-crimson/30 text-crimson"
+                                                : "bg-warm-surface border-warm-border text-text-muted hover:bg-warm-border"
                                                 }`}
                                         >
                                             {opt.label}
@@ -343,18 +343,18 @@ export function WidgetConfigPanel({ widget, onUpdateProps, onClose, buttonRect }
                 </div>
 
                 {/* Footer with Save */}
-                <div className="px-4 py-3 border-t border-zinc-100 flex justify-end gap-2 sticky bottom-0 bg-white/95 backdrop-blur-xl rounded-b-xl">
+                <div className="px-4 py-3 border-t border-warm-border flex justify-end gap-2 sticky bottom-0 bg-white/95 backdrop-blur-xl rounded-b-xl">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-3 py-1.5 text-[11px] font-medium text-zinc-400 hover:text-zinc-600 rounded-md transition-colors"
+                        className="px-3 py-1.5 text-[11px] font-medium text-text-muted hover:text-text-primary rounded-md transition-colors"
                     >
                         Cancel
                     </button>
                     <button
                         type="button"
                         onClick={handleSave}
-                        className="px-4 py-1.5 text-[11px] font-medium bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-sm transition-colors"
+                        className="px-4 py-1.5 text-[11px] font-medium btn-crimson-gradient text-white rounded-md shadow-sm hover:opacity-90 transition-all"
                     >
                         Save
                     </button>

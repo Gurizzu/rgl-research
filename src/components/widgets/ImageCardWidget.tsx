@@ -10,17 +10,21 @@ export default function ImageCardWidget({
   return (
     <div className="flex h-full flex-col gap-2">
       <div className="relative flex-1 overflow-hidden rounded-lg">
-        <div className="absolute inset-0 bg-zinc-800" />
-        {/* Fallback color if image fails or for placeholder */}
+        <div className="absolute inset-0 bg-warm-surface" />
         {image && (
-          <div className="flex items-center justify-center w-full h-full bg-zinc-700 text-zinc-500">
-            [Image: {image}]
-          </div>
+          <img
+            src={image}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = "none";
+            }}
+          />
         )}
       </div>
       <div>
-        <h3 className="text-sm sm:text-base font-semibold text-white">{title}</h3>
-        <p className="text-xs sm:text-sm text-zinc-400">{description}</p>
+        <h3 className="text-sm sm:text-base font-semibold text-text-primary">{title}</h3>
+        <p className="text-xs sm:text-sm text-text-secondary">{description}</p>
       </div>
     </div>
   );

@@ -1,76 +1,70 @@
-"use client";
-
-import React from "react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { WidgetInstance } from "@/types";
-
-const WIDGET_TYPES: { value: WidgetInstance["type"]; label: string }[] = [
-    { value: "hero", label: "Hero" },
-    { value: "hero-image", label: "Hero Image" },
-    { value: "text", label: "Text" },
-    { value: "image-card", label: "Image Card" },
-];
+import { Plus, Trash2, ChevronDown } from "lucide-react";
 
 interface SectionToolbarProps {
     title: string;
-    description?: string;
+    description: string;
     onAddWidget: (type: WidgetInstance["type"]) => void;
     onDeleteSection: () => void;
 }
 
-export function SectionToolbar({ title, description, onAddWidget, onDeleteSection }: SectionToolbarProps) {
-    const [dropdownOpen, setDropdownOpen] = React.useState(false);
+const WIDGET_TYPES: { type: WidgetInstance["type"]; label: string; icon: string }[] = [
+    { type: "hero", label: "Hero Banner", icon: "🏠" },
+    { type: "hero-image", label: "Hero Image", icon: "🖼" },
+    { type: "text", label: "Text Block", icon: "📝" },
+    { type: "image-card", label: "Image Card", icon: "🃏" },
+];
 
+export function SectionToolbar({ title, description, onAddWidget, onDeleteSection }: SectionToolbarProps) {
     return (
-        <div className="flex items-center justify-between mb-2 pointer-events-auto">
-            <div className="flex items-center gap-2">
-                <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold select-none">
-                    {title}
-                    {description && (
-                        <span className="font-normal opacity-70 normal-case tracking-normal ml-2 text-zinc-300">
-                            — {description}
-                        </span>
-                    )}
-                </p>
+        <div className="flex items-center gap-3 mb-2 px-2 py-2">
+            {/* Section info */}
+            <div className="flex-1 min-w-0">
+                <h2 className="text-xs font-bold text-text-primary">{title}</h2>
+                <p className="text-[10px] text-text-muted">{description}</p>
             </div>
 
-            <div className="flex items-center gap-1">
-                {/* Add Widget Dropdown */}
-                <div className="relative">
+            {/* Add Widget Dropdown */}
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
                     <button
                         type="button"
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                        className="px-2 py-1 text-[10px] font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-md border border-zinc-200 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-rose-tint text-crimson rounded-lg border border-crimson/15 hover:bg-crimson hover:text-white transition-all"
                     >
-                        + Widget
+                        <Plus className="w-3 h-3" />
+                        Add Widget
+                        <ChevronDown className="w-3 h-3" />
                     </button>
-                    {dropdownOpen && (
-                        <div className="absolute right-0 top-full mt-1 bg-white border border-zinc-200 rounded-lg shadow-lg z-50 min-w-[140px] py-1">
-                            {WIDGET_TYPES.map((wt) => (
-                                <button
-                                    key={wt.value}
-                                    type="button"
-                                    onClick={() => {
-                                        onAddWidget(wt.value);
-                                        setDropdownOpen(false);
-                                    }}
-                                    className="w-full text-left px-3 py-1.5 text-xs text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 transition-colors"
-                                >
-                                    {wt.label}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-[160px]">
+                    {WIDGET_TYPES.map((wt) => (
+                        <DropdownMenuItem
+                            key={wt.type}
+                            onClick={() => onAddWidget(wt.type)}
+                            className="cursor-pointer text-xs"
+                        >
+                            <span className="mr-2">{wt.icon}</span>
+                            {wt.label}
+                        </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+            </DropdownMenu>
 
-                {/* Delete Section */}
-                <button
-                    type="button"
-                    onClick={onDeleteSection}
-                    className="px-2 py-1 text-[10px] font-medium bg-red-50 hover:bg-red-100 text-red-500 rounded-md border border-red-200 transition-colors"
-                >
-                    🗑 Section
-                </button>
-            </div>
+            {/* Delete Section */}
+            <button
+                type="button"
+                onClick={onDeleteSection}
+                className="flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-medium text-text-muted border border-warm-border rounded-lg hover:text-red-500 hover:bg-red-50 hover:border-red-200 transition-all"
+            >
+                <Trash2 className="w-3 h-3" />
+                Delete
+            </button>
         </div>
     );
 }
