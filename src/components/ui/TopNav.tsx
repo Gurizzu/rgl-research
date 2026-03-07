@@ -2,8 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { Switch } from "./switch";
-import { Label } from "./label";
 import {
     Sheet,
     SheetContent,
@@ -13,7 +11,7 @@ import {
 } from "./sheet";
 import { templates } from "@/data/templates";
 import type { Section } from "@/types";
-import { ArrowLeft, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowLeft, Eye, Pencil } from "lucide-react";
 
 interface TopNavProps {
     isEditMode: boolean;
@@ -25,23 +23,26 @@ export function TopNav({ isEditMode, setIsEditMode, onApplyTemplate }: TopNavPro
     const [open, setOpen] = React.useState(false);
 
     return (
-        <nav className="sticky top-0 w-full h-14 border-b border-warm-border bg-white/90 backdrop-blur-md z-50 flex items-center justify-between px-4 sm:px-6 md:px-8">
-            <div className="flex items-center gap-4">
-                <Link href="/" className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors">
+        <nav className="sticky top-0 w-full h-[52px] border-b border-warm-border bg-white z-50 flex items-center justify-between px-5">
+            {/* Left side */}
+            <div className="flex items-center gap-4 h-full">
+                <Link
+                    href="/"
+                    className="flex items-center gap-1.5 px-2.5 h-8 rounded-lg bg-warm-surface text-text-secondary hover:text-text-primary transition-colors"
+                >
                     <ArrowLeft className="w-4 h-4" />
-                    <span className="text-xs font-medium hidden sm:inline">Back</span>
+                    <span className="text-xs font-medium">Back</span>
                 </Link>
-                <div className="h-5 w-px bg-warm-border" />
-                <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-md btn-crimson-gradient" />
-                    <span className="font-bold text-sm text-text-primary">My Art Showcase</span>
-                    <span className="text-[10px] px-2 py-0.5 bg-warm-surface text-text-muted rounded-full border border-warm-border font-medium">
-                        Draft
-                    </span>
-                </div>
+
+                <span className="text-[15px] font-semibold text-text-primary">My Art Showcase</span>
+
+                <span className="text-[11px] font-semibold text-crimson bg-rose-tint px-2.5 py-0.5 rounded-full">
+                    Draft
+                </span>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Right side */}
+            <div className="flex items-center gap-2.5 h-full">
                 {/* Template Drawer */}
                 <Sheet open={open} onOpenChange={setOpen}>
                     <SheetTrigger asChild>
@@ -66,7 +67,6 @@ export function TopNav({ isEditMode, setIsEditMode, onApplyTemplate }: TopNavPro
                                     key={tpl.id}
                                     type="button"
                                     onClick={() => {
-                                        // Deep clone to avoid reference issues
                                         const cloned = JSON.parse(JSON.stringify(tpl.sections)) as Section[];
                                         onApplyTemplate?.(cloned);
                                         setOpen(false);
@@ -98,24 +98,34 @@ export function TopNav({ isEditMode, setIsEditMode, onApplyTemplate }: TopNavPro
                     </SheetContent>
                 </Sheet>
 
-                {/* Edit Mode Toggle */}
-                <div className="flex items-center space-x-2">
-                    <Switch
-                        id="edit-mode"
-                        checked={isEditMode}
-                        onCheckedChange={setIsEditMode}
-                    />
-                    <Label htmlFor="edit-mode" className="cursor-pointer font-medium text-sm text-text-secondary">
-                        Edit Mode
-                    </Label>
-                </div>
+                {/* Preview / Edit Toggle */}
+                <button
+                    type="button"
+                    onClick={() => setIsEditMode(!isEditMode)}
+                    className={`flex items-center gap-1.5 px-4 h-[34px] rounded-full border text-xs font-medium transition-all
+                        ${isEditMode
+                            ? "border-warm-border text-text-secondary hover:bg-warm-surface"
+                            : "border-crimson/30 bg-rose-tint text-crimson"
+                        }`}
+                >
+                    {isEditMode ? (
+                        <>
+                            <Eye className="w-3.5 h-3.5" />
+                            Preview
+                        </>
+                    ) : (
+                        <>
+                            <Pencil className="w-3.5 h-3.5" />
+                            Edit
+                        </>
+                    )}
+                </button>
 
                 {/* Publish Button */}
                 <button
                     type="button"
-                    className="btn-crimson-gradient text-white text-xs font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1.5"
+                    className="btn-crimson-gradient text-white text-xs font-semibold px-5 h-[34px] rounded-full hover:opacity-90 transition-opacity"
                 >
-                    <Sparkles className="w-3 h-3" />
                     Publish
                 </button>
             </div>
